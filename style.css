@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #fcf1d8;
+    font-family: 'Sriracha', cursive;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; 
+    touch-action: none; /* ห้ามมือถือเด้งแบบ Balance It */
+    -webkit-touch-callout: none; /* ห้ามแตะค้างแล้วเด้งเมนู */
+    -webkit-user-select: none;   /* ห้ามลากคลุมข้อความ */
+    overscroll-behavior: none;   /* ห้ามจอเด้งดึ๋ง (Rubber band) */
+}
+
+/* ฉากหลัง */
+#game-backdrop {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background-color: #fcf1d8;
+    z-index: -1;
+}
+
+/* =========================================
+   SCALE WRAPPER (กระดานหลักกว้าง 1080px)
+========================================= */
+#scale-wrapper {
+    position: absolute;
+    top: 50%; left: 50%;
+    /* คำนวณความกว้างจากการ์ด 958.5px + เผื่อขอบข้างนิดหน่อย = 1080px */
+    width: 1080px;  
+    height: 2000px; /* ความสูงเผื่อพื้นที่ให้ปุ่มด้านล่าง */
+    transform-origin: center center;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px; 
+}
+
+/* =========================================
+   การ์ดชั้นนอก (สี #007a6d) - อิงสเปกที่คุณให้มาเป๊ะๆ
+========================================= */
+.card-outer {
+    width: 958.5px;
+    height: 1715.7px;
+    background-color: #007a6d;
+    border: 25px solid #4d1f0f; /* กรอบสีน้ำตาล */
+    border-radius: 47px;
+    
+    /* ใช้ Flex จัดให้การ์ดชั้นในอยู่ตรงกลางอัตโนมัติ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    position: relative;
+}
+
+/* =========================================
+   การ์ดชั้นใน (สี #339087) - อิงสเปกที่คุณให้มาเป๊ะๆ
+========================================= */
+.card-inner {
+    width: 825.8px;
+    height: 1568.4px;
+    background-color: #339087;
+    border-radius: 47px;
+    
+    /* จัด Layout โซนต่างๆ ข้างใน */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 60px 40px; /* ดันเนื้อหาไม่ให้ชิดขอบชั้นในเกินไป */
+}
+
+/* โซน 1: พานไหว้ครู */
+.visual-section {
+    flex: 1.1; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#offeringImage {
+    max-width: 100%;
+    max-height: 90%;
+    object-fit: contain;
+    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.25));
+}
+
+/* โซน 2: กระดาษโน้ตและกลอน */
+.paper-section {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+    top: -5%;
+}
+.note-bg {
+    position: absolute;
+    width: 120%;
+    object-fit: fill; 
+    z-index: 1;
+}
+.poem-text {
+    position: relative;
+    z-index: 2;
+    color: #4d1f0f;
+    font-size: 20px; /* ปรับขนาดฟอนต์ให้พอดีกระดาษ */
+    text-align: left;
+    line-height: 1.5;
+    padding: 0 70px;
+    white-space: pre-wrap;
+    top: 5%;
+    left: 2.25%;
+    transform: scale(1.1) rotate(-2deg);
+}
+
+/* โซน 3: ข้อความขอบคุณและลายเซ็น */
+.footer-section {
+    flex: 0.6;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: #ffffff;
+    width: 100%;
+}
+.thank-you-text {
+    font-size: 28px;
+    text-align: center;
+    line-height: 1.4;
+    margin-bottom: 40px;
+    transform: translateY(-20%);;
+}
+.signature-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    padding: 0 10px;
+}
+.signature-text {
+    text-align: right;
+    font-size: 30px;
+    line-height: 1.3;
+    padding-bottom: 10px;
+}
+.qr-wrapper {
+    padding: 2px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.qr-code {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* =========================================
+   โซนปุ่มกด
+========================================= */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    width: 958.5px; /* ล็อกความกว้างกลุ่มปุ่มให้เท่าขอบการ์ดวงนอก */
+}
+.btn {
+    font-family: 'Sriracha', cursive;
+    flex: 1;
+    background-color: white;
+    color: #4d1f0f;
+    border: 8px solid #4d1f0f;
+    border-radius: 80px;
+    padding: 20px 0; 
+    font-size: 45px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 10px 0px rgba(0,0,0,0.1);
+    transition: all 0.1s;
+}
+.btn:active {
+    transform: translateY(8px);
+    box-shadow: 0 2px 0px rgba(0,0,0,0.1);
+}

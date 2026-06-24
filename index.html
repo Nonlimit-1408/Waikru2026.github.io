@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WaiKru 2026</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="game-backdrop"></div>
+
+    <div id="scale-wrapper">
+        
+        <div class="card-outer" id="scrapbook-card">
+            
+            <div class="card-inner">
+                
+                <div class="visual-section">
+                    <img src="phan.png" alt="พานไหว้ครู" id="offeringImage">
+                </div>
+
+                <div class="paper-section">
+                    <img src="note.png" class="note-bg" alt="กระดาษโน้ต">
+                    <p class="poem-text" id="poemText">
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <p class="thank-you-text">
+                        ขอขอบคุณอาจารย์ที่ได้สั่งสอน ชี้แนะ ดูแลมาเป็นอย่างดี<br>
+                        ขอให้อาจารย์สุขภาพร่างกายแข็งแรง อายุยืนยาว ร่ำรวยเงินทองครับ
+                    </p>
+                    <div class="signature-box">
+                        
+                        <div class="qr-wrapper">
+                            <img src="qr.png" alt="QR Code" class="qr-code">
+                        </div>
+                        <div class="signature-text">
+                            - ชนัตนนท์ บวรโภคิน<br>
+                            ศิษย์เก่ารุ่นที่ 47<br>
+                            วันไหว้ครูสาธิตศิลปากร 2569
+                        </div>
+                    </div>
+                </div>
+
+            </div> </div> <div class="button-group">
+            <button class="btn" id="randomBtn">สุ่มใหม่</button>
+            <button class="btn" id="saveBtn">บันทึก</button>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+    <script src="poem.js"></script>
+    <script src="assets.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</body>
+</html>
