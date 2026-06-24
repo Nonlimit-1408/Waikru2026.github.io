@@ -110,7 +110,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 // =========================================
-// 4. ระบบเซฟการ์ดเป็นรูปภาพ (html2canvas)
+// 4. ระบบเซฟเฉพาะตัวการ์ด (html2canvas)
 // =========================================
 saveBtn.addEventListener('click', async () => {
     const cardElement = document.getElementById('scrapbook-card');
@@ -125,51 +125,25 @@ saveBtn.addEventListener('click', async () => {
     saveBtn.disabled = true;
     randomBtn.disabled = true;
 
-    // สร้างกล่องจำลอง (Export Container)
-    const exportContainer = document.createElement('div');
-    exportContainer.style.position = 'absolute';
-    exportContainer.style.top = '0';
-    exportContainer.style.left = '0';
-    exportContainer.style.zIndex = '-100'; 
-    exportContainer.style.width = '1080px';
-    exportContainer.style.height = '1920px';
-    exportContainer.style.backgroundColor = 'transparent'; 
-    exportContainer.style.display = 'flex';
-    exportContainer.style.justifyContent = 'center';
-    exportContainer.style.alignItems = 'center';
-
-    const clonedCard = cardElement.cloneNode(true);
-    
-    // HACK: แก้บัก html2canvas ขอบเขียวปลิ้น
-    clonedCard.style.border = 'none'; 
-    clonedCard.style.backgroundColor = '#4d1f0f'; 
-    clonedCard.style.boxShadow = 'none'; 
-
-    const darkGreenLayer = document.createElement('div');
-    darkGreenLayer.style.width = '908.5px';
-    darkGreenLayer.style.height = '1665.7px';
-    darkGreenLayer.style.backgroundColor = '#007a6d'; 
-    darkGreenLayer.style.borderRadius = '22px'; 
-    
-    darkGreenLayer.style.display = 'flex';
-    darkGreenLayer.style.justifyContent = 'center';
-    darkGreenLayer.style.alignItems = 'center';
-
-    while (clonedCard.firstChild) {
-        darkGreenLayer.appendChild(clonedCard.firstChild);
-    }
-    clonedCard.appendChild(darkGreenLayer);
-
-    exportContainer.appendChild(clonedCard);
-    document.body.appendChild(exportContainer);
-
-    await new Promise(resolve => setTimeout(resolve, 150));
-
     try {
-        const canvas = await html2canvas(exportContainer, {
-            scale: 1, 
+        const canvas = await html2canvas(cardElement, {
+            scale: 2, 
             useCORS: true, 
-            backgroundColor: null 
+            backgroundColor: null, 
+            onclone: (clonedDoc) => {
+                // 1. ปลดล็อกการซูม (แก้แคปติดทั้งหน้าจอ)
+                const wrapper = clonedDoc.getElementById('scale-wrapper');
+                if (wrapper) {
+                    wrapper.style.transform = 'none'; 
+                }
+                
+                // 🟢 2. ปราบมือถือ: สั่งลบสีครีมออก และซ่อน Backdrop ทิ้งในหน้าต่างจำลอง!
+                clonedDoc.body.style.backgroundColor = 'transparent';
+                const backdrop = clonedDoc.getElementById('game-backdrop');
+                if (backdrop) {
+                    backdrop.style.display = 'none';
+                }
+            }
         });
 
         const imageURL = canvas.toDataURL("image/png");
@@ -185,7 +159,6 @@ saveBtn.addEventListener('click', async () => {
         console.error("Save Error: ", err);
         alert("❌ เกิดข้อผิดพลาดในการบันทึกรูปภาพ");
     } finally {
-        document.body.removeChild(exportContainer);
         saveBtn.innerText = originalText;
         saveBtn.disabled = false;
         randomBtn.disabled = false;
