@@ -16,6 +16,8 @@ body {
     -webkit-touch-callout: none; /* ห้ามแตะค้างแล้วเด้งเมนู */
     -webkit-user-select: none;   /* ห้ามลากคลุมข้อความ */
     overscroll-behavior: none;   /* ห้ามจอเด้งดึ๋ง (Rubber band) */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* ฉากหลัง */
@@ -184,7 +186,7 @@ body {
     border-radius: 80px;
     padding: 20px 0; 
     font-size: 45px;
-    font-weight: bold;
+    font-weight: normal;
     cursor: pointer;
     box-shadow: 0 10px 0px rgba(0,0,0,0.1);
     transition: all 0.1s;
